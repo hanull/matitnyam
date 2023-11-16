@@ -1,6 +1,5 @@
 package com.wandted.matitnyam.controller;
 
-import com.wandted.matitnyam.domain.MemberRole;
 import com.wandted.matitnyam.infrastructure.JwtTokenProvider;
 import com.wandted.matitnyam.service.dto.LoginMember;
 import com.wandted.matitnyam.support.JwtTokenExtractor;
