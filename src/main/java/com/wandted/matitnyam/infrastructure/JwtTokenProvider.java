@@ -42,14 +42,21 @@ public class JwtTokenProvider {
 
     public boolean isValid(final String token) {
         try {
-            final Jws<Claims> claims = Jwts.parser()
-                    .verifyWith(key)
-                    .build()
-                    .parseSignedClaims(token);
-
+            final Jws<Claims> claims = parseToken(token);
             return claims.getPayload().getExpiration().after(new Date());
         } catch (JwtException | IllegalArgumentException exception) {
             return false;
         }
+    }
+
+    public Claims getClams(final String token) {
+        return parseToken(token).getPayload();
+    }
+
+    private Jws<Claims> parseToken(final String token) {
+        return Jwts.parser()
+                .verifyWith(key)
+                .build()
+                .parseSignedClaims(token);
     }
 }
