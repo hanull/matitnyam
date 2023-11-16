@@ -1,9 +1,11 @@
 package com.wandted.matitnyam.infrastructure;
 
-
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.wandted.matitnyam.domain.MemberRole;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.Jwts.SIG;
 import io.jsonwebtoken.security.Keys;
@@ -36,5 +38,18 @@ public class JwtTokenProvider {
                 .expiration(expireTime)
                 .signWith(key, SIG.HS256)
                 .compact();
+    }
+
+    public boolean isValid(final String token) {
+        try {
+            final Jws<Claims> claims = Jwts.parser()
+                    .verifyWith(key)
+                    .build()
+                    .parseSignedClaims(token);
+
+            return claims.getPayload().getExpiration().after(new Date());
+        } catch (JwtException | IllegalArgumentException exception) {
+            return false;
+        }
     }
 }
