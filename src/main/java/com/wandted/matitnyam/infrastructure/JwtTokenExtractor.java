@@ -1,4 +1,4 @@
-package com.wandted.matitnyam.support;
+package com.wandted.matitnyam.infrastructure;
 
 import com.wandted.matitnyam.exception.InvalidTokenException;
 import jakarta.servlet.http.HttpServletRequest;
